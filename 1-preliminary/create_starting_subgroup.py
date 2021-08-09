@@ -1,4 +1,5 @@
 from aiida.plugins import DataFactory
+from pathlib import Path
 from aiida import orm
 
 def get_plugin_name():
@@ -37,8 +38,13 @@ if PLUGIN_NAME == 'quantum_espresso':
     query.append(orm.Node, project="attributes.element", tag='pseudo')
     query.append(orm.Group, filters={'label': 'SSSP/1.1/PBE/precision'}, with_node='pseudo')
     valid_elements = query.all(flat=True)
-#elif PLUGIN_NAME == 'xxx':
-#    yyy
+elif PLUGIN_NAME == 'aiida_castep':
+    text = Path('C19-supported-elems').read_text().split('\n')
+    valid_elements = []
+    for line in text:
+        if not line:
+            continue
+        valid_elements.append(line.split()[-1])
 else:
     raise ValueError(f"Unknown plugin name `{PLUGIN_NAME}`!")
 #####################################################################################

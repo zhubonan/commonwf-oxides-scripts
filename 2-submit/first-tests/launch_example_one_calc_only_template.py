@@ -6,8 +6,8 @@ from aiida_common_workflows.common import ElectronicType, RelaxType, SpinType
 from aiida_common_workflows.plugins import get_entry_point_name_from_class
 from aiida_common_workflows.plugins import load_workflow_entry_point
 
-PLUGIN_NAME = 'quantum_espresso'
-CODE_LABEL = 'qe-6.7-pw@daint-mc'
+PLUGIN_NAME = 'aiida_castep'
+CODE_LABEL = 'castep-20.1@myriad'
 
 STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set1/structures/{PLUGIN_NAME}'
 WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set1/workflows/{PLUGIN_NAME}'
@@ -22,7 +22,7 @@ all_structures = {(res[0]['element'], res[0]['configuration']): res[1] for res i
 structure = all_structures[('Ag', 'X2O')]
 print(f'Structure PK: {structure.pk}')
 
-sub_process_cls = load_workflow_entry_point('relax', 'quantum_espresso')
+sub_process_cls = load_workflow_entry_point('relax', PLUGIN_NAME)
 sub_process_cls_name = get_entry_point_name_from_class(sub_process_cls).name
 generator = sub_process_cls.get_input_generator()
 
@@ -35,9 +35,9 @@ for engine in engine_types:
          'options': {
             'resources': {
                 'num_machines': 1
+                'tot_num_mpiproces': 8
             },
-            'account': 'mr0',
-            'max_wallclock_seconds': 3600
+            'max_wallclock_seconds': 12 * 3600
         }
     }
 
@@ -51,15 +51,6 @@ inputs = {
         'spin_type': SpinType.NONE,
     },
     'sub_process_class': sub_process_cls_name,
-    'sub_process' : {  # optional code-dependent overrides
-        'base': {
-            'pw': {
-                'settings' : orm.Dict(dict= {
-                    'cmdline': ['-nk', '18'],
-                })
-            }
-        }
-    }
 }
 
 cls = WorkflowFactory('common_workflows.eos')
