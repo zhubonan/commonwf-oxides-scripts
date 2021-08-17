@@ -38,7 +38,7 @@ if PLUGIN_NAME == 'quantum_espresso':
     query.append(orm.Node, project="attributes.element", tag='pseudo')
     query.append(orm.Group, filters={'label': 'SSSP/1.1/PBE/precision'}, with_node='pseudo')
     valid_elements = query.all(flat=True)
-elif PLUGIN_NAME == 'aiida_castep':
+elif PLUGIN_NAME == 'castep':
     text = Path('C19-supported-elems').read_text().split('\n')
     valid_elements = []
     for line in text:
