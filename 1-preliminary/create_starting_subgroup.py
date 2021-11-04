@@ -2,6 +2,8 @@ from aiida.plugins import DataFactory
 from pathlib import Path
 from aiida import orm
 
+SET_NAME = 'set2'
+
 def get_plugin_name():
     import os
     file_name = os.path.join(
@@ -25,8 +27,8 @@ def get_plugin_name():
 
 PLUGIN_NAME = get_plugin_name()
 
-STRUCTURES_FULL_GROUP_LABEL = 'commonwf-oxides/set1/structures'
-STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set1/structures/{PLUGIN_NAME}'
+STRUCTURES_FULL_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/structures'
+STRUCTURES_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/structures/{PLUGIN_NAME}'
 
 group = orm.Group.objects.get(label=STRUCTURES_FULL_GROUP_LABEL)
 subgroup, _ = orm.Group.objects.get_or_create(label=STRUCTURES_GROUP_LABEL)

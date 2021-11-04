@@ -8,9 +8,10 @@ from aiida_common_workflows.plugins import load_workflow_entry_point
 
 PLUGIN_NAME = 'aiida_castep'
 CODE_LABEL = 'castep-20.1.1@myriad'
+SET_NAME = 'set2'
 
-STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set1/structures/{PLUGIN_NAME}'
-WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set1/workflows/{PLUGIN_NAME}'
+STRUCTURES_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/structures/{PLUGIN_NAME}'
+WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/workflows/{PLUGIN_NAME}'
 
 Structure = DataFactory('structure')
 
