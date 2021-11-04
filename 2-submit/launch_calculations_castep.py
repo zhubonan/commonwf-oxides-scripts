@@ -54,9 +54,11 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'options': {
                     'resources': {
                         'parallel_env': 'mpi',
-                        'tot_num_mpiprocs': 4,
+                        'tot_num_mpiprocs': 12,
                     },
-                    'max_wallclock_seconds': 3600 * 8
+                    'max_wallclock_seconds': 3600 * 24,
+                    'custom_scheduler_commands': '#$ -l mem=4G',
+                    'import_sys_environment': False
                 }
             }
 
