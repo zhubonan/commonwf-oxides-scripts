@@ -13,10 +13,10 @@ from aiida_submission_controller import FromGroupSubmissionController
 DRY_RUN = False
 MAX_CONCURRENT = 40
 PLUGIN_NAME = 'castep'
-CODE_LABEL = 'castep-20.1.1@myriad'
+CODE_LABEL = 'castep-20.1.1@thomas'
 
-STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set1/structures/{PLUGIN_NAME}'
-WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set1/workflows/{PLUGIN_NAME}'
+STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set2/structures/{PLUGIN_NAME}'
+WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set2/workflows/{PLUGIN_NAME}'
 
 class EosSubmissionController(FromGroupSubmissionController):
     """A SubmissionController for submitting EOS with Quantum ESPRESSO common workflows."""
@@ -45,7 +45,7 @@ class EosSubmissionController(FromGroupSubmissionController):
         sub_process_cls_name = get_entry_point_name_from_class(sub_process_cls).name
         generator = sub_process_cls.get_input_generator()
 
-        engine_types = generator.get_engine_types()
+        engine_types = generator.spec().inputs['engines']
         engines = {}
         # There should be only one
         for engine in engine_types:
@@ -54,21 +54,21 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'options': {
                     'resources': {
                         'parallel_env': 'mpi',
-                        'tot_num_mpiprocs': 12,
+                        'tot_num_mpiprocs': 24,
                     },
-                    'max_wallclock_seconds': 3600 * 24,
+                    'max_wallclock_seconds': 3600 * 12,
                     'custom_scheduler_commands': '#$ -l mem=4G',
                     'import_sys_environment': False
                 }
             }
 
-        generator.get_builder(structure, engines)
+        generator.get_builder(structure=structure, engines=engines)
 
         inputs = {
             'structure': structure,
             'generator_inputs': {  # code-agnostic inputs for the relaxation
                 'engines': engines,
-                'protocol': 'precise',
+                'protocol': 'oxides_validation',
                 'relax_type': RelaxType.NONE,
                 'electronic_type': ElectronicType.METAL,
                 'spin_type': SpinType.NONE,
