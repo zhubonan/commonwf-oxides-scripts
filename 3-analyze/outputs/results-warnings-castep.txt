@@ -1,0 +1,187 @@
+WARNING! High fit residuals: 7.139930970224143e-06 for Ag X2O5
+WARNING! High fit residuals: 1.0297667331182206e-06 for Ag XO
+WARNING! High fit residuals: 1.4457489692179878e-06 for Ag XO3
+WARNING! High fit residuals: 1.5231372647680591e-06 for Al X2O
+WARNING! High fit residuals: 3.131703759839629e-06 for Al XO3
+WARNING! High fit residuals: 1.3073413512888992e-06 for Ar X2O
+WARNING! High fit residuals: 3.7690937205109037e-06 for Ar X2O3
+WARNING! High fit residuals: 6.321081655426517e-06 for Ar X2O5
+WARNING! High fit residuals: 5.790196482074233e-06 for Ar XO
+WARNING! High fit residuals: 1.8891808557737597e-06 for Ar XO2
+WARNING! High fit residuals: 1.7383144308399526e-05 for Ar XO3
+WARNING! High fit residuals: 1.8702022430247174e-06 for As X2O5
+WARNING! High fit residuals: 1.0354173210252641e-06 for Au X2O5
+WARNING! High fit residuals: 2.41518140226703e-06 for Au XO2
+WARNING! High fit residuals: 1.3389494987056566e-06 for Au XO3
+WARNING! High fit residuals: 1.2919011221233874e-06 for B X2O3
+WARNING! High fit residuals: 1.0192834109608478e-06 for B X2O5
+WARNING! High fit residuals: 1.395400769420755e-06 for Ba X2O5
+WARNING! High fit residuals: 8.627981786348552e-06 for Be X2O
+WARNING! High fit residuals: 2.728969662698755e-05 for Be X2O5
+WARNING! High fit residuals: 3.1403042344534694e-06 for Be XO2
+WARNING! High fit residuals: 0.00014062475581983467 for Be XO3
+WARNING! High fit residuals: 3.97066916643836e-06 for Br X2O5
+WARNING! High fit residuals: 1.0436431408057431e-06 for Br XO
+WARNING! High fit residuals: 3.1810669008115703e-06 for Br XO3
+WARNING! High fit residuals: 1.4400948553058008e-06 for C XO
+WARNING! High fit residuals: 1.3440313941066024e-06 for C XO2
+WARNING! High fit residuals: 5.656869902051738e-06 for Ca XO3
+WARNING! High fit residuals: 9.89126932181819e-05 for Cd X2O3
+WARNING! High fit residuals: 2.1689874705200295e-06 for Cd XO2
+WARNING! High fit residuals: 1.0117111926850111e-06 for Cl X2O
+WARNING! High fit residuals: 1.3887484264674885e-06 for Cl X2O3
+WARNING! High fit residuals: 1.8045138494913058e-06 for Cl X2O5
+WARNING! High fit residuals: 1.5769176288877599e-06 for Cl XO2
+WARNING! High fit residuals: 2.8296343640442936e-06 for Cl XO3
+WARNING! High fit residuals: 6.4146469960072965e-06 for Co X2O3
+WARNING! High fit residuals: 5.1561139557794896e-05 for Cr XO2
+WARNING! High fit residuals: 2.0276927776430797e-06 for Cs X2O3
+WARNING! High fit residuals: 2.0596811462731397e-06 for Cs X2O5
+WARNING! High fit residuals: 4.580642236915714e-06 for Cs XO
+WARNING! High fit residuals: 1.2643428697604066e-06 for Cs XO2
+WARNING! High fit residuals: 1.0194046276823423e-06 for Cu XO3
+WARNING! High fit residuals: 2.5284148700766833e-06 for F X2O3
+WARNING! High fit residuals: 1.0427982508839917e-06 for F X2O5
+WARNING! High fit residuals: 6.2463237708426795e-06 for F XO
+WARNING! High fit residuals: 3.41304246865412e-06 for F XO2
+WARNING! High fit residuals: 2.0024992318421445e-06 for F XO3
+WARNING! High fit residuals: 4.085182792113451e-06 for Fe X2O3
+WARNING! High fit residuals: 1.0703411814153076e-06 for Fr X2O5
+WARNING! High fit residuals: 1.3532125029951337e-06 for Gd X2O3
+WARNING! High fit residuals: 3.945569537907168e-06 for H X2O5
+WARNING! High fit residuals: 8.723552481140677e-06 for H XO
+WARNING! High fit residuals: 2.5393923750194307e-06 for H XO3
+WARNING! High fit residuals: 3.2254102658804024e-05 for He X2O
+WARNING! High fit residuals: 1.821313141545182e-06 for He X2O3
+WARNING! High fit residuals: 1.7721999285599831e-06 for He X2O5
+WARNING! High fit residuals: 1.5296904693943535e-06 for He XO
+WARNING! High fit residuals: 5.527497309007865e-06 for He XO2
+WARNING! High fit residuals: 1.1110131803950697e-05 for He XO3
+WARNING! High fit residuals: 1.0280066348342056e-06 for Hf X2O5
+WARNING! High fit residuals: 2.4133062118680707e-06 for Hg XO3
+WARNING! High fit residuals: 1.2079493492017172e-06 for I XO3
+WARNING! High fit residuals: 1.0908852108858179e-06 for Ir XO3
+WARNING! High fit residuals: 6.958768546277025e-06 for K X2O3
+WARNING! High fit residuals: 3.929788722891193e-06 for K X2O5
+WARNING! High fit residuals: 1.944955462467774e-06 for K XO2
+WARNING! High fit residuals: 5.331246207742087e-06 for K XO3
+WARNING! High fit residuals: 4.836309773345683e-06 for Kr X2O
+WARNING! High fit residuals: 1.8894665494849382e-06 for Kr X2O3
+WARNING! High fit residuals: 1.8924221997921878e-06 for Kr X2O5
+WARNING! High fit residuals: 9.410198317301306e-06 for Kr XO
+WARNING! High fit residuals: 2.297489718214469e-06 for Kr XO2
+WARNING! Unable to fit for La XO3
+WARNING! High fit residuals: 3.795202775910261e-05 for Li X2O3
+WARNING! High fit residuals: 2.339959782369088e-06 for Li X2O5
+WARNING! High fit residuals: 5.111801694898456e-06 for Li XO
+WARNING! High fit residuals: 1.8289643194669187e-05 for Li XO3
+WARNING! High fit residuals: 1.7748486912924547e-06 for Lu X2O5
+WARNING! High fit residuals: 9.074207134482667e-06 for Lu XO
+WARNING! High fit residuals: 2.048818830014741e-06 for Lu XO3
+WARNING! High fit residuals: 1.0123893771094057e-06 for Mg X2O5
+WARNING! High fit residuals: 1.9188656683642067e-06 for Mg XO2
+WARNING! High fit residuals: 1.559737350813125e-06 for Mg XO3
+WARNING! High fit residuals: 0.011857098331601727 for Mn X2O3
+WARNING! High fit residuals: 0.00016904798762373211 for Mn X2O5
+WARNING! High fit residuals: 8.613627048140195e-06 for Mn XO
+WARNING! High fit residuals: 6.1370361169487675e-06 for Mn XO3
+WARNING! High fit residuals: 3.2677603968833162e-06 for N X2O5
+WARNING! High fit residuals: 1.5801429977785746e-06 for N XO3
+WARNING! High fit residuals: 1.275999586631165e-06 for Na X2O3
+WARNING! High fit residuals: 3.3375759111978656e-06 for Na XO
+WARNING! High fit residuals: 1.0957103549365067e-05 for Na XO2
+WARNING! High fit residuals: 2.4595043614800964e-05 for Na XO3
+WARNING! High fit residuals: 3.0742148963620185e-06 for Ne X2O
+WARNING! High fit residuals: 9.59707511531265e-06 for Ne X2O3
+WARNING! High fit residuals: 7.462751193161419e-06 for Ne XO
+WARNING! High fit residuals: 7.645773060536098e-06 for Ne XO2
+WARNING! High fit residuals: 1.72360508128755e-05 for Ne XO3
+WARNING! High fit residuals: 1.0191963328260633e-06 for Ni XO3
+WARNING! High fit residuals: 7.31619770868919e-06 for Pa XO3
+WARNING! High fit residuals: 1.383619501300252e-06 for Pb X2O5
+WARNING! High fit residuals: 2.568145414008618e-06 for Pb XO3
+WARNING! High fit residuals: 0.00033222610925716123 for Pd XO2
+WARNING! High fit residuals: 1.681503101578102e-06 for Pt XO3
+WARNING! High fit residuals: 1.1968360536461834e-06 for Ra X2O3
+WARNING! High fit residuals: 2.60842035926507e-06 for Ra X2O5
+WARNING! High fit residuals: 1.6032834167119633e-06 for Rb X2O
+WARNING! High fit residuals: 1.2649123181714564e-06 for Rb X2O3
+WARNING! High fit residuals: 4.9603598087024155e-06 for Rb X2O5
+WARNING! High fit residuals: 2.814008448702633e-05 for Rb XO2
+WARNING! High fit residuals: 2.0836778114784514e-05 for Rb XO3
+WARNING! High fit residuals: 1.7509686840198042e-06 for Rh XO3
+WARNING! High fit residuals: 1.1349927503430438e-06 for Rn X2O
+WARNING! High fit residuals: 1.3090489883355126e-06 for Ru X2O5
+WARNING! High fit residuals: 8.902612260927217e-06 for S XO3
+WARNING! High fit residuals: 4.6624963871404766e-06 for Sb XO3
+WARNING! High fit residuals: 1.1887215540802638e-06 for Sc X2O5
+WARNING! High fit residuals: 1.0871178477945954e-06 for Sc XO2
+WARNING! High fit residuals: 1.448195080986734e-06 for Se XO3
+WARNING! High fit residuals: 2.0191973192107547e-06 for Si X2O3
+WARNING! High fit residuals: 2.4206666512191492e-06 for Sn X2O3
+WARNING! High fit residuals: 1.0141930076646224e-06 for Sn XO2
+WARNING! High fit residuals: 1.7163872575916142e-06 for Sr X2O
+WARNING! High fit residuals: 1.0589501047622706e-06 for Sr X2O5
+WARNING! High fit residuals: 6.1056745718949945e-06 for Sr XO3
+WARNING! High fit residuals: 1.2194819313467826e-06 for Ti X2O5
+WARNING! High fit residuals: 1.0680215694190257e-06 for Tl X2O3
+WARNING! High fit residuals: 3.5458454555518532e-06 for Tl X2O5
+WARNING! High fit residuals: 2.1635221178475727e-06 for Tl XO
+WARNING! High fit residuals: 2.9730212974897123e-06 for Tl XO3
+WARNING! High fit residuals: 0.0001846699422034965 for V X2O
+WARNING! High fit residuals: 0.0014282455490678616 for V XO
+WARNING! High fit residuals: 1.2623703466372198e-05 for V XO2
+WARNING! High fit residuals: 8.552662941693618e-05 for V XO3
+WARNING! High fit residuals: 1.1750528301176554e-06 for Xe XO
+WARNING! High fit residuals: 1.274941880070175e-06 for Y XO2
+WARNING! High fit residuals: 1.6819934563310276e-06 for Y XO3
+WARNING! High fit residuals: 2.635197335356841e-06 for Zn XO3
+WARNING! High fit residuals: 2.462947918267285e-06 for Zr X2O
+WARNING! High fit residuals: 1.3369437660741622e-06 for Zr XO3
+
+Counter of states: Counter({'finished.0': 565, 'excepted': 5})
+
+Minimum completely off for 42/570
+Completely off systems (symbol indicates if the minimum is on the very left or right):
+- Ac X2O (>)
+- Ac X2O3 (>)
+- Ac XO (>)
+- Ac XO2 (>)
+- Ac XO3 (>)
+- Ar X2O (>)
+- At XO3 (>)
+- Ba XO3 (>)
+- Bi XO2 (>)
+- Bi XO3 (>)
+- Cs XO2 (>)
+- Cs XO3 (>)
+- Er X2O (>)
+- Fr XO3 (>)
+- He X2O (>)
+- He XO (>)
+- I XO3 (>)
+- La X2O (>)
+- La XO3 (>)
+- Ne X2O (>)
+- Ne XO (>)
+- Pa X2O (<)
+- Po XO3 (>)
+- Pu X2O (>)
+- Pu X2O3 (>)
+- Pu X2O5 (>)
+- Pu XO (>)
+- Ra XO3 (>)
+- Rb XO3 (>)
+- Rn X2O (>)
+- Rn X2O5 (>)
+- Rn XO3 (>)
+- Te XO3 (>)
+- Th X2O (>)
+- Th X2O3 (>)
+- Th X2O5 (>)
+- Th XO (>)
+- Th XO2 (>)
+- Th XO3 (>)
+- Tm X2O (>)
+- Xe XO3 (>)
+- Yb X2O (>)
