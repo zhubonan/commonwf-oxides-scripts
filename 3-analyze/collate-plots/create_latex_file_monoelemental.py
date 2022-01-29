@@ -22,7 +22,7 @@ def get_plugin_name():
             "expected by the aiida-common-workflows project"
         ) from exc
 
-PLUGIN_NAME = get_plugin_name() + '-ks-0.15'
+PLUGIN_NAME = get_plugin_name()
 
 # Shorten this list if you want to show less elements
 element_list = [
@@ -56,9 +56,9 @@ if __name__ == "__main__":
     if not os.path.exists(
         os.path.join(
             os.path.dirname(os.path.realpath(__file__)), os.pardir,
-             "outputs", "plots-%s" % (folder_string))):
-        print("ERROR! No folder ../outputs/plots-%s found." % (folder_string))
-        print("       Did you run the `../outputs/generate_plots.py` script?")
+             "outputs", "plots-monoelemental-%s" % (folder_string))):
+        print("ERROR! No folder ../outputs/plots-monoelemental-%s found." % (folder_string))
+        print("       Did you run the `../outputs/generate_plots_monoelemental.py` script?")
         sys.exit(1)
 
 
@@ -73,11 +73,23 @@ if __name__ == "__main__":
         """)
 
         for element in element_list:
-            for configuration in ['XO', 'XO2', 'XO3', 'X2O', 'X2O3', 'X2O5']:
-                fhandle.write("\\IfFileExists{../../outputs/plots-%s/%s-%s.png}"  % (folder_string, element, configuration))
-                fhandle.write("{\\includegraphics[width=0.15\\linewidth]{../../outputs/plots-%s/%s-%s}}" % (folder_string, element, configuration))
-                fhandle.write("{\\includegraphics[width=0.15\\linewidth]{missing}}\n")
+            for configuration in ['X']:
+                # There are for now very few, I only print the existing ones
+                if os.path.exists('../outputs/plots-monoelemental-%s/%s-%s.png' % (folder_string, element, configuration)):
+                    fhandle.write("\\IfFileExists{../../outputs/plots-monoelemental-%s/%s-%s.png}"  % (folder_string, element, configuration))
+                    fhandle.write("{\\includegraphics[width=0.15\\linewidth]{../../outputs/plots-monoelemental-%s/%s-%s}}" % (folder_string, element, configuration))
+                    fhandle.write("{\\includegraphics[width=0.15\\linewidth]{missing}}\n")
             fhandle.write("\n")
+
+        # OXYGEN, now:
+        for configuration in element_list:
+            # There are for now very few, I only print the existing ones
+            if os.path.exists('../outputs/plots-monoelemental-%s/O-%s.png' % (folder_string, configuration)):
+                fhandle.write("\\IfFileExists{../../outputs/plots-monoelemental-%s/O-%s.png}"  % (folder_string, configuration))
+                fhandle.write("{\\includegraphics[width=0.15\\linewidth]{../../outputs/plots-monoelemental-%s/O-%s}}" % (folder_string, configuration))
+                fhandle.write("{\\includegraphics[width=0.15\\linewidth]{missing}}\n")
+        fhandle.write("\n")
+
 
         fhandle.write(r"\end{document}")
         fhandle.write("\n")
