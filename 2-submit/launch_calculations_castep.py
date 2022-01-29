@@ -1,6 +1,7 @@
 import time
 
 #from re import S
+import numpy as np
 from aiida.plugins import DataFactory, WorkflowFactory
 from aiida import orm
 from aiida.engine import submit
@@ -13,7 +14,7 @@ from aiida_submission_controller import FromGroupSubmissionController
 DRY_RUN = False
 MAX_CONCURRENT = 40
 PLUGIN_NAME = 'castep'
-CODE_LABEL = 'castep-20.1.1@thomas'
+CODE_LABEL = 'castep-20.1.1@thomas-fw'
 
 STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set2/structures/{PLUGIN_NAME}'
 WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set2/workflows/{PLUGIN_NAME}'
@@ -53,7 +54,7 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'code': CODE_LABEL,
                 'options': {
                     'resources': {
-                        'parallel_env': 'mpi',
+                        #'parallel_env': 'mpi',
                         'tot_num_mpiprocs': 24,
                     },
                     'max_wallclock_seconds': 3600 * 12,
@@ -63,6 +64,7 @@ class EosSubmissionController(FromGroupSubmissionController):
             }
 
         generator.get_builder(structure=structure, engines=engines)
+        label = structure.extras['element'] + ' ' + structure.extras['configuration']
 
         inputs = {
             'structure': structure,
@@ -78,7 +80,8 @@ class EosSubmissionController(FromGroupSubmissionController):
                 'base': {
                     'clean_workdir': orm.Bool(True),
                 }
-                    }
+                    },
+            'metadata': {'label': label},
         }
 
         return inputs, self._process_class

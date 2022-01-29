@@ -22,7 +22,7 @@ def get_plugin_name():
             "expected by the aiida-common-workflows project"
         ) from exc
 
-PLUGIN_NAME = get_plugin_name()
+PLUGIN_NAME = get_plugin_name() + '-ks-0.15'
 
 ## ADAPT TO THE CORRECT LIST OF ELEMENTS
 element_list = [

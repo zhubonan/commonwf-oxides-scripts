@@ -27,7 +27,7 @@ def get_plugin_name():
             "expected by the aiida-common-workflows project"
         ) from exc
 
-PLUGIN_NAME = get_plugin_name()
+PLUGIN_NAME = get_plugin_name() + '-ks-0.15'
 
 STRUCTURES_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/structures/{PLUGIN_NAME}'
 WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/workflows/{PLUGIN_NAME}'
