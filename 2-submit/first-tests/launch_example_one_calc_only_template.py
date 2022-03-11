@@ -10,8 +10,8 @@ PLUGIN_NAME = 'castep'
 CODE_LABEL = 'castep-20.1.1@thomas'
 SET_NAME = 'set2'
 
-STRUCTURES_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/structures/{PLUGIN_NAME}'
-WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/{SET_NAME}/workflows/{PLUGIN_NAME}'
+STRUCTURES_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures/{PLUGIN_NAME}'
+WORKFLOWS_GROUP_LABEL = f'acwf-verification/{SET_NAME}/workflows/{PLUGIN_NAME}'
 
 Structure = DataFactory('structure')
 

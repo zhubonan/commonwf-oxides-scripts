@@ -1,5 +1,48 @@
 import numpy as np
 
+def get_num_atoms_in_formula_unit(configuration):
+    """Return the number ot atoms per formula unit.
+
+    For unaries, it's the number in the primitive cell: 1 for SC, BCC, FCC; 2 for diamond.
+    """
+    mapping = {
+        'XO': 2,
+        'XO2': 3,
+        'X2O': 3,
+        'X2O3': 5,
+        'XO3': 4,
+        'X2O5': 7,
+        'X/Diamond': 2,
+        'X/SC': 1,
+        'X/FCC': 1,
+        'X/BCC': 1
+    }
+
+    try:
+        return mapping[configuration]
+    except KeyError:
+        raise ValueError(f"Unknown number of atoms in formula unit for configuration '{configuration}'")
+
+
+def get_volume_scaling_to_formula_unit(num_atoms_in_cell, element, configuration):
+    """Return the scaling factor for extensive quantities (energies, volumes, ...).
+
+    The volume per formula unit is the volume in the simulation cell (with `num_atoms_in_cell`)
+    DIVIDED by the value returned by this function.
+    """
+    num_atoms_in_formula_unit = get_num_atoms_in_formula_unit(configuration)
+
+    if element != "O":
+        # For oxygen I might get a smaller cell;
+        # the remaining logic is still correct (I divide by 0.5 => multiply by 2
+        # if there is e.g. 1 atom in XO but the number of atoms in the formula unit is 2)
+        assert num_atoms_in_cell % num_atoms_in_formula_unit == 0, (
+            f"Weird! {num_atoms_in_cell} atoms in cell but "
+            f"{num_atoms_in_formula_unit} in formula unit for {element}-{configuration}!")
+
+    scaling = num_atoms_in_cell / num_atoms_in_formula_unit
+    return scaling
+
 def birch_murnaghan(V,E0,V0,B0,B01):
     """
     Return the energy for given volume (V - it can be a vector) according to
@@ -109,13 +152,12 @@ def antiderE2(V0,B0,B0pr,V):
 
     return antider
 
-def delta(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def delta(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Calculate the Delta value, function copied from the official DeltaTest repository.
-    I don't understand what it does, but it works.
+    I don't understand what it does, but it works. Result is in meV
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
     RETURNING A QUANTITY THAT IS USEFUL FOR COMPARISON, THIS SIMPLIFIES THE CODE LATER.
-    Even though 'config_string' is useless here.
     """
 
     Vi = 0.94 * (v0w + v0f) / 2.
@@ -174,22 +216,12 @@ def delta(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weigh
     return Delta  #, Deltarel, Delta1
 
 
-def delta_per_atom(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_B1):
-    """
-    Divides the delta by the number of atoms in the cell.
-    THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
-    RETURNING A QUANTITY THAT IS USEFULL FOR COMPARISON, THIS SIMPLIFIES THE CODE LATER.
-    """
-    conf_natoms_map = {'XO':2,'XO2':3,'XO3':4,'X2O':3,'X2O3':10,'X2O5':14}
-    return delta(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_B1)/conf_natoms_map[config_string]
 
-
-def epsilon2(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def epsilon(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Calculate alternative Delta2 based on 2 EOS fits
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
     RETURNING A QUANTITY THAT IS USEFUL FOR COMPARISON, THIS SIMPLIFIES THE CODE LATER.
-    Even though 'config_string' is useless here.
     """
 
     # volume range
@@ -206,14 +238,18 @@ def epsilon2(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, we
     int4 = intE2dV(v0f,b0f,b1f,Vi,Vf) - \
             2*Eavg2*intEdV(v0f,b0f,b1f,Vi,Vf) + \
             deltaV*Eavg2**2
-    delta2 = intdiff2/np.sqrt(int3*int4)
+    eps2 = intdiff2/np.sqrt(int3*int4)
 
-    # here we use x100 multiplier to allign delta2 with what we use to as
-    # 'small' difference in the original delta definition (in meV)
-    return delta2*prefact
+    #We saw a case when, for numerical error, intdiff2 was negative
+    #(about -1*10^{-13}). For this reason, we add a safty check.
+    if eps2 < 0.0:
+        print(f"eps2 = {eps2}, negative due to numerical error probably, we take the absolute value")
+        eps2 = abs(eps2)
+    
+    return np.sqrt(eps2)*prefact
 
 
-def V0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def V0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Returns the relative difference in the volumes.
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
@@ -223,7 +259,7 @@ def V0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0,
     return prefact*2*(v0w-v0f)/(v0w+v0f)
 
 
-def B0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def B0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Returns the relative difference in the bulk modulus.
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
@@ -232,7 +268,7 @@ def B0_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0,
     """
     return prefact*2*(b0w-b0f)/(b0w+b0f)
 
-def B1_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def B1_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Returns the reletive difference in the derivative of the bulk modulus.
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
@@ -241,12 +277,11 @@ def B1_rel_diff(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0,
     """
     return prefact*2*(b1w-b1f)/(b1w+b1f)
 
-def rel_errors_vec_length(v0w, b0w, b1w, v0f, b0f, b1f, config_string, prefact, weight_b0, weight_b1):
+def rel_errors_vec_length(v0w, b0w, b1w, v0f, b0f, b1f, prefact, weight_b0, weight_b1):
     """
     Returns the length of the vector formed by the relative error of V0, B0, B1
     THE SIGNATURE OF THIS FUNCTION HAS BEEN CHOSEN TO MATCH THE ONE OF ALL THE OTHER FUNCTIONS
     RETURNING A QUANTITY THAT IS USEFUL FOR COMPARISON, THIS SIMPLIFIES THE CODE LATER.
-    Even though config_string is not usd
     """
     V0err =  2*(v0w-v0f)/(v0w+v0f)
     B0err =  2*(b0w-b0f)/(b0w+b0f)
