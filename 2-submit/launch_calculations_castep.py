@@ -1,8 +1,10 @@
+#!/usr/bin/env runaiida
+import sys
 import time
 
 #from re import S
-import numpy as np
 from aiida.plugins import DataFactory, WorkflowFactory
+#!/usr/bin/env runaiida
 from aiida import orm
 from aiida.engine import submit
 
@@ -12,12 +14,10 @@ from aiida_common_workflows.plugins import load_workflow_entry_point
 from aiida_submission_controller import FromGroupSubmissionController
 
 DRY_RUN = False
-MAX_CONCURRENT = 40
+MAX_CONCURRENT = 24
 PLUGIN_NAME = 'castep'
 CODE_LABEL = 'castep-20.1.1@thomas-fw'
 
-STRUCTURES_GROUP_LABEL = f'commonwf-oxides/set2/structures/{PLUGIN_NAME}'
-WORKFLOWS_GROUP_LABEL = f'commonwf-oxides/set2/workflows/{PLUGIN_NAME}'
 
 class EosSubmissionController(FromGroupSubmissionController):
     """A SubmissionController for submitting EOS with Quantum ESPRESSO common workflows."""
@@ -63,14 +63,13 @@ class EosSubmissionController(FromGroupSubmissionController):
                 }
             }
 
-        generator.get_builder(structure=structure, engines=engines)
         label = structure.extras['element'] + ' ' + structure.extras['configuration']
 
         inputs = {
             'structure': structure,
             'generator_inputs': {  # code-agnostic inputs for the relaxation
                 'engines': engines,
-                'protocol': 'oxides_validation',
+                'protocol': 'verification-PBE-v1',
                 'relax_type': RelaxType.NONE,
                 'electronic_type': ElectronicType.METAL,
                 'spin_type': SpinType.NONE,
@@ -87,6 +86,15 @@ class EosSubmissionController(FromGroupSubmissionController):
         return inputs, self._process_class
 
 if __name__ == "__main__":
+    try:
+        SET_NAME = sys.argv[1]
+    except IndexError:
+        print("Pass as parameter the set name, e.g. oxides-verification-PBE-v1 or unaries-set1")
+        sys.exit(1)
+
+    STRUCTURES_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures/{PLUGIN_NAME}'
+    WORKFLOWS_GROUP_LABEL = f'acwf-verification/{SET_NAME}/workflows/{PLUGIN_NAME}'
+
     controller = EosSubmissionController(
         parent_group_label=STRUCTURES_GROUP_LABEL,
         code_label=CODE_LABEL,
