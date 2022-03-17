@@ -40,7 +40,7 @@ def get_plugin_name():
             "expected by the aiida-common-workflows project"
         ) from exc
 
-PLUGIN_NAME = get_plugin_name() + '-ks-0.15'
+PLUGIN_NAME = get_plugin_name()
 
 if __name__ == "__main__":
     try:
