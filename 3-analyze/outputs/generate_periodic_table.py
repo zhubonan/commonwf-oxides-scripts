@@ -10,6 +10,12 @@ import tqdm
 
 import quantities_for_comparison as qc
 
+SHOW_IN_BROWSER=False
+DEFAULT_PREFACTOR = 100
+DEFAULT_wb0 = 1.0/8.0
+DEFAULT_wb1 = 1.0/64.0
+EXPECTED_SCRIPT_VERSION = "0.0.3"
+
 
 from bokeh.models import (
     ColumnDataSource,
@@ -19,7 +25,7 @@ from bokeh.models import (
     BasicTicker,
 )
 from bokeh.plotting import figure, output_file
-from bokeh.io import show as show_
+from bokeh.io import show as show_, export_png
 from bokeh.sampledata.periodic_table import elements
 from bokeh.transform import dodge
 from matplotlib.colors import Normalize, LogNorm, to_hex
@@ -49,7 +55,7 @@ def get_plugin_name():
             # Simple check e.g. to make sure there are no weird characters,
             # newlines, ... - one might still make a typo, but at least we
             # do a basic check
-            assert plugin_name.isidentifier()
+            #assert plugin_name.isidentifier()
         return plugin_name
     except FileNotFoundError as exc:
         raise FileNotFoundError(
@@ -59,24 +65,27 @@ def get_plugin_name():
         ) from exc
 
 
+def abs_V0_rel_diff(*args, **kwargs):
+    return abs(qc.V0_rel_diff(*args, **kwargs))
+def abs_B0_rel_diff(*args, **kwargs):
+    return abs(qc.B0_rel_diff(*args, **kwargs))
+def abs_B1_rel_diff(*args, **kwargs):
+    return abs(qc.B1_rel_diff(*args, **kwargs))
+
 quantity_for_comparison_map = {
     "delta_per_formula_unit": qc.delta,
     "B0_rel_diff": qc.B0_rel_diff,
     "V0_rel_diff": qc.V0_rel_diff,
     "B1_rel_diff": qc.B1_rel_diff,
+    "abs_V0_rel_diff": abs_V0_rel_diff,
+    "abs_B0_rel_diff": abs_B0_rel_diff,
+    "abs_B1_rel_diff": abs_B1_rel_diff,            
     "rel_errors_vec_length": qc.rel_errors_vec_length,
     "epsilon": qc.epsilon
 }
 
 
 PLUGIN_NAME = get_plugin_name()
-
-BINS = 100
-DEFAULT_PREFACTOR = 100
-DEFAULT_wb0 = 1.0/8.0
-DEFAULT_wb1 = 1.0/64.0
-EXPECTED_SCRIPT_VERSION = "0.0.3"
-
 
 if __name__ == "__main__":
     try:
@@ -223,6 +232,11 @@ if __name__ == "__main__":
     if cmap == "plasma":
         cmap = plasma
         bokeh_palette = "Plasma256"
+    elif cmap == "magma":
+        cmap = magma
+        bokeh_palette = "Magma256"
+    else:
+        raise ValueError("Unknown color map")
 
     # Define number of and groups
     period_label = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -451,9 +465,32 @@ if __name__ == "__main__":
     p.add_layout(color_bar, "right")
     p.grid.grid_line_color = None
 
-    #if output_filename:
-    output_file("plot")
+     # Open in a browser
+    if SHOW_IN_BROWSER:
+        output_file("periodic-table-plot.html")
+        show_(p)
+    else:
+        try:
+            export_png(p, filename="periodic-table-plot.png")
+        except RuntimeError as exc:
+            msg = str(exc)
+            msg = f"""
 
-    #if show:
-    show_(p)
+ERROR GENERATING THE IMAGE!
+The original error message was:
+{msg}
+
+Please check the following:
+- Bokeh instructions here: https://docs.bokeh.org/en/latest/docs/user_guide/export.html#additional-dependencies
+- That you installed the requirements.txt file, and in particular that you installed
+  `pip install selenium chromedriver-binary`
+  (to use with Chrome)
+- that you have a recent version of Chrome
+- that you downloaded from https://chromedriver.chromium.org/ and put in your PATH
+  the chromedriver executable for the *SAME* version of Chrome that you have
+  (note that Chrome typically self-updates, so check even if this script
+  used to work, check that now Chrome is not more recent than the chromedriver you had installed;
+  in this case udpate it).
+"""
+            raise RuntimeError(msg)
 
