@@ -38,7 +38,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     STRUCTURES_FULL_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures'
-    STRUCTURES_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures/{PLUGIN_NAME}'
+    STRUCTURES_GROUP_LABEL = f'acwf-verification/{SET_NAME}/structures/{PLUGIN_NAME}-dojo-test'
 
     group = orm.Group.objects.get(label=STRUCTURES_FULL_GROUP_LABEL)
     subgroup, _ = orm.Group.objects.get_or_create(label=STRUCTURES_GROUP_LABEL)
@@ -51,12 +51,11 @@ if __name__ == "__main__":
         query.append(orm.Group, filters={'label': 'SSSP/1.1/PBE/precision'}, with_node='pseudo')
         valid_elements = query.all(flat=True)
     elif PLUGIN_NAME == 'castep':
-        text = Path('C19-supported-elems').read_text().split('\n')
-        valid_elements = []
-        for line in text:
-            if not line:
-                continue
-            valid_elements.append(line.split()[-1])
+
+        query = orm.QueryBuilder()
+        query.append(orm.Node, project="attributes.element", tag='pseudo')
+        query.append(orm.Group, filters={'label': 'PseudoDojo/0.4/PBE/SR/standard/upf'}, with_node='pseudo')
+        valid_elements = query.all(flat=True)
     else:
         raise ValueError(f"Unknown plugin name `{PLUGIN_NAME}`!")
     #####################################################################################

@@ -19,7 +19,7 @@ from aiida_common_workflows.workflows.relax.workchain import CommonRelaxWorkChai
 
 __version__ = "0.0.3"
 
-
+SUFFIX='dojo-test'
 def get_plugin_name():
     file_name = os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
@@ -31,7 +31,7 @@ def get_plugin_name():
             # Simple check e.g. to make sure there are no weird characters,
             # newlines, ... - one might still make a typo, but at least we
             # do a basic check
-            assert plugin_name.isidentifier()
+            #assert plugin_name.isidentifier()
         return plugin_name
     except FileNotFoundError as exc:
         raise FileNotFoundError(
