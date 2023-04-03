@@ -80,6 +80,11 @@
             "unaries": "results-unaries-verification-PBE-v1-castep-PseudoDojo-0.4-PBE-SR-standard-upf.json",
             "short_label": "CASTEP"
         },
+        "ASTEP@PW|PseudoDojo-v0.4-trim":{
+            "oxides": "results-oxides-verification-PBE-v1-castep-PseudoDojo-0.4-PBE-SR-standard-upf-trim.json",
+            "unaries": "results-unaries-verification-PBE-v1-castep-PseudoDojo-0.4-PBE-SR-standard-upf-trim.json",
+            "short_label": "CASTEP"
+        },
         "Quantum ESPRESSO@PW|PseudoDojo-v0.4":{
             "oxides": "results-oxides-verification-PBE-v1-quantum_espresso-PseudoDojo-0.4-PBE-SR-standard-upf.json",
             "unaries": "results-unaries-verification-PBE-v1-quantum_espresso-PseudoDojo-0.4-PBE-SR-standard-upf.json",
@@ -94,6 +99,17 @@
             "oxides": "results-oxides-verification-PBE-v1-quantum_espresso-SSSP-1.2-PBE-precision.json",
             "unaries": "results-unaries-verification-PBE-v1-quantum_espresso-SSSP-1.2-PBE-precision.json",
             "short_label": "QE"
+        },
+        "FLEUR@LAPW+LO":{
+            "oxides": "results-oxides-verification-PBE-v1-fleur.json",
+            "unaries": "results-unaries-verification-PBE-v1-fleur.json",
+            "short_label": "FLEUR"
+        },
+        "CASTEP@PW|C19MK2":{
+            "oxides": "results-oxides-verification-PBE-v1-castep.json",
+            "unaries": "results-unaries-verification-PBE-v1-castep.json",
+            "short_label": "CASTEP"
         }
+ 
     }
 }    
